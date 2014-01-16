@@ -14,7 +14,7 @@ define network::bond::redhat(
   $method    = undef,
   $family    = undef,
   $onboot    = undef,
-
+  $mtu       = undef,
   $mode             = undef,
   $miimon           = undef,
   $downdelay        = undef,
@@ -28,21 +28,23 @@ define network::bond::redhat(
   $bonding_opts = template("network/bond/opts-redhat.erb")
 
   network_config { $name:
-    ensure    => $ensure,
-    method    => $method,
-    ipaddress => $ipaddress,
-    netmask   => $netmask,
-    family    => $family,
-    onboot    => $onboot,
+    ensure           => $ensure,
+    method           => $method,
+    ipaddress        => $ipaddress,
+    netmask          => $netmask,
+    family           => $family,
+    onboot           => $onboot,
+    mtu              => $mtu,
     options          => {
       'BONDING_OPTS' => $bonding_opts,
     }
   }
 
   network_config { $slaves:
-    ensure => $ensure,
-    method => static,
-    onboot => true,
+    ensure     => $ensure,
+    method     => static,
+    onboot     => true,
+    mtu        => $mtu,
     options    => {
       'MASTER' => $name,
       'SLAVE'  => 'yes',

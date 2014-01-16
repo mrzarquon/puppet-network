@@ -129,7 +129,7 @@ define network::bond(
   $method    = undef,
   $family    = undef,
   $onboot    = undef,
-
+  $mtu       = undef,
   $mode             = "active-backup",
   $miimon           = "100",
   $downdelay        = "200",
@@ -150,14 +150,14 @@ define network::bond(
   case $::osfamily {
     Debian: {
       network::bond::debian { $name:
-        slaves    => $slaves,
-        ensure    => $ensure,
-        ipaddress => $ipaddress,
-        netmask   => $netmask,
-        method    => $method,
-        family    => $family,
-        onboot    => $onboot,
-
+        slaves           => $slaves,
+        ensure           => $ensure,
+        ipaddress        => $ipaddress,
+        netmask          => $netmask,
+        method           => $method,
+        family           => $family,
+        onboot           => $onboot,
+        mtu              => $mtu,
         mode             => $mode,
         miimon           => $miimon,
         downdelay        => $downdelay,
@@ -172,14 +172,14 @@ define network::bond(
     }
     RedHat: {
       network::bond::redhat { $name:
-        slaves    => $slaves,
-        ensure    => $ensure,
-        ipaddress => $ipaddress,
-        netmask   => $netmask,
-        family    => $family,
-        method    => $method,
-        onboot    => $onboot,
-
+        slaves           => $slaves,
+        ensure           => $ensure,
+        ipaddress        => $ipaddress,
+        netmask          => $netmask,
+        family           => $family,
+        method           => $method,
+        onboot           => $onboot,
+        mtu              => $mtu,
         mode             => $mode,
         miimon           => $miimon,
         downdelay        => $downdelay,

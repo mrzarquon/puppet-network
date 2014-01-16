@@ -13,7 +13,7 @@ define network::bond::debian(
   $method    = undef,
   $family    = undef,
   $onboot    = undef,
-
+  $mtu       = undef,
   $mode             = undef,
   $miimon           = undef,
   $downdelay        = undef,
@@ -45,11 +45,13 @@ define network::bond::debian(
     family    => $family,
     method    => $method,
     onboot    => $onboot,
+    mtu       => $mtu,
     options   => $opts,
   }
 
   network_config { $slaves:
     ensure      => absent,
+    mtu         => $mtu,
     reconfigure => true,
     before      => Network_config[$name],
   }
